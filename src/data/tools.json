@@ -1,0 +1,8 @@
+[
+  { "id": "anonymization", "name": "Anonymization", "short": "Anon", "description": "Remove or generalize identifiers (k-anonymity, masking, pseudonymization) before data is used or shared." },
+  { "id": "dp", "name": "Differential Privacy", "short": "DP", "description": "Add calibrated noise to outputs so no single individual's presence can be inferred." },
+  { "id": "cryptography", "name": "Cryptography", "short": "Crypto", "description": "Encryption, secure multi-party computation (MPC) and homomorphic encryption to protect data in storage, transit and use." },
+  { "id": "law", "name": "Law & Policy", "short": "Law", "description": "Legal and contractual controls: regulatory compliance, data processing agreements, access policies." },
+  { "id": "zkp", "name": "Zero-Knowledge Proofs", "short": "ZKP", "description": "Prove a statement about data is true without revealing the data itself." },
+  { "id": "fl", "name": "Federated Learning", "short": "FL", "description": "Train a model where the data lives; only model updates leave each site." }
+]

@@ -1,0 +1,344 @@
+﻿Ratings
+	1
+	2
+	3
+	4
+	5
+	Data Sensitivity
+1 = product preferences
+5 = health or financial
+	
+
+	
+
+	
+
+	
+
+	
+
+	Linkage Risk
+1 = nothing to match
+5 = easily joined
+	
+
+	
+
+	
+
+	
+
+	
+
+	Need for Exact Results
+1 = rough trends
+5 = must be exact
+	
+
+	
+
+	
+
+	
+
+	
+
+	Distrust of Data Holder
+1 = trusted internal team
+5 = untrusted
+	
+
+	
+
+	
+
+	
+
+	
+
+	Public Release
+1 = internal only
+5 = public
+	
+
+	
+
+	
+
+	
+
+	
+
+	Release Frequency
+1 = 1
+5 = continuously
+	
+
+	
+
+	
+
+	
+
+	
+
+[a]	
+Resource Constraints
+1= plenty of budget/compute/expertise
+5 = none
+	
+
+	
+
+	
+
+	
+
+	
+
+	Need for Explainability
+1 = not important
+5 = very important
+	
+
+	
+
+	
+
+	
+
+	
+
+	Number of Organizations
+1 = 1
+5 = many
+	
+
+	
+
+	
+
+	
+
+	
+
+	Data Must Stay Local
+1 = can move freely
+5 = cannot leave source
+	
+
+	
+
+	
+
+	
+
+	
+
+	Need for Speed
+1 = days or weeks okay
+5 = real-time
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+Scores
+	Anonymization
+	DP
+	Cryptography
+	Law
+	ZKP
+	FL
+	Data Sensitivity
+	-1
+	+1
+	+1
+	+1
+	0
+	+1
+	Linkage Risk
+	-1
+	+1
+	0
+	0
+	0
+	0
+	Need for Exact Results
+	0
+	-1
+	+1
+	+1
+	+1
+	0
+	Distrust of Data Holder
+	0
+	0
+	+1
+	0
+	+1
+	+1
+	Release Frequency
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	Resource Constraints
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	Need for Explainability
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	Number of Organizations
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	Data Must Stay Local
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	Need for Speed
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+Rule
+	Output
+	YES
+	NO
+	The data is regulated (ex. HIPAA, GDPR)
+	YES = Legal always needed
+	
+
+	
+
+	Results will be released publicly
+	YES = Anonymization not enough by itself
+	
+
+	
+
+	Users need access to individual records
+	YES = DP not enough by itself
+	
+
+	
+
+	Multiple organizations contribute data
+	NO = MPC ruled out
+	
+
+	
+
+	Small dataset (< ~1000 records)
+	YES = Warning: DP may add a lot of noise
+	
+
+	
+
+	Data stored/processed by a third party
+	YES = Encryption always needed
+	
+
+	
+
+	Results must be re-linked to individuals later
+	YES = No anonymization or DP for local raw data, use id numbers for patients and limit access
+	
+
+	
+
+	Data is transferred across borders
+	YES = Legal must include transfer mechanism (SCC under GDPR)
+	
+
+	
+
+	Goal is training an ML model
+	NO = FL ruled out
+	
+
+	
+
+	Data includes images
+	YES = Warning: anonymization unreliable here
+	
+
+	
+
+	Must prove a fact about data without revealing data
+	YES = ZKP, unless 3rd party can verify; NO = ZK ruled out
+	
+
+	
+
+	
+
+[a]???

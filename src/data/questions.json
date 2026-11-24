@@ -1,0 +1,161 @@
+{
+  "ratings": [
+    {
+      "id": "sensitivity",
+      "label": "Data Sensitivity",
+      "low": "Product preferences",
+      "high": "Health or financial",
+      "weights": { "anonymization": -1, "dp": 1, "cryptography": 1, "law": 1, "zkp": 0, "fl": 1 }
+    },
+    {
+      "id": "linkage",
+      "label": "Linkage Risk",
+      "low": "Nothing to match",
+      "high": "Easily joined",
+      "weights": { "anonymization": -1, "dp": 1, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "exactness",
+      "label": "Need for Exact Results",
+      "low": "Rough trends",
+      "high": "Must be exact",
+      "weights": { "anonymization": 0, "dp": -1, "cryptography": 1, "law": 1, "zkp": 1, "fl": 0 }
+    },
+    {
+      "id": "distrust",
+      "label": "Distrust of Data Holder",
+      "low": "Trusted internal team",
+      "high": "Untrusted",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 1, "law": 0, "zkp": 1, "fl": 1 }
+    },
+    {
+      "id": "public_release",
+      "label": "Public Release",
+      "low": "Internal only",
+      "high": "Public",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "frequency",
+      "label": "Release Frequency",
+      "low": "Once",
+      "high": "Continuously",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "resources",
+      "label": "Resource Constraints",
+      "low": "Plenty of budget/compute/expertise",
+      "high": "None",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "explainability",
+      "label": "Need for Explainability",
+      "low": "Not important",
+      "high": "Very important",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "organizations",
+      "label": "Number of Organizations",
+      "low": "1",
+      "high": "Many",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "locality",
+      "label": "Data Must Stay Local",
+      "low": "Can move freely",
+      "high": "Cannot leave source",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    },
+    {
+      "id": "speed",
+      "label": "Need for Speed",
+      "low": "Days or weeks okay",
+      "high": "Real-time",
+      "weights": { "anonymization": 0, "dp": 0, "cryptography": 0, "law": 0, "zkp": 0, "fl": 0 }
+    }
+  ],
+  "rules": [
+    {
+      "id": "regulated",
+      "label": "The data is regulated (ex. HIPAA, GDPR)",
+      "effects": [
+        { "when": "yes", "type": "require", "tool": "law", "text": "Legal is always needed for regulated data." }
+      ]
+    },
+    {
+      "id": "public_results",
+      "label": "Results will be released publicly",
+      "effects": [
+        { "when": "yes", "type": "not-alone", "tool": "anonymization", "text": "Anonymization is not enough by itself for public releases." }
+      ]
+    },
+    {
+      "id": "individual_access",
+      "label": "Users need access to individual records",
+      "effects": [
+        { "when": "yes", "type": "not-alone", "tool": "dp", "text": "Differential privacy is not enough by itself when users need individual records." }
+      ]
+    },
+    {
+      "id": "multi_org",
+      "label": "Multiple organizations contribute data",
+      "effects": [
+        { "when": "no", "type": "note", "tool": "cryptography", "text": "MPC is ruled out with a single organization (other cryptography, like encryption, may still apply)." }
+      ]
+    },
+    {
+      "id": "small_dataset",
+      "label": "Small dataset (< ~1000 records)",
+      "effects": [
+        { "when": "yes", "type": "warning", "tool": "dp", "text": "DP may add a lot of noise on a small dataset." }
+      ]
+    },
+    {
+      "id": "third_party",
+      "label": "Data stored/processed by a third party",
+      "effects": [
+        { "when": "yes", "type": "require", "tool": "cryptography", "text": "Encryption is always needed when a third party stores or processes the data." }
+      ]
+    },
+    {
+      "id": "relink",
+      "label": "Results must be re-linked to individuals later",
+      "effects": [
+        { "when": "yes", "type": "warning", "text": "Do not apply anonymization or DP to local raw data. Use ID numbers for patients and limit access." }
+      ]
+    },
+    {
+      "id": "cross_border",
+      "label": "Data is transferred across borders",
+      "effects": [
+        { "when": "yes", "type": "note", "tool": "law", "text": "Legal must include a transfer mechanism (e.g. SCCs under GDPR)." }
+      ]
+    },
+    {
+      "id": "ml_training",
+      "label": "Goal is training an ML model",
+      "effects": [
+        { "when": "no", "type": "exclude", "tool": "fl", "text": "Federated learning is ruled out when not training an ML model." }
+      ]
+    },
+    {
+      "id": "images",
+      "label": "Data includes images",
+      "effects": [
+        { "when": "yes", "type": "warning", "tool": "anonymization", "text": "Anonymization is unreliable for image data." }
+      ]
+    },
+    {
+      "id": "prove_fact",
+      "label": "Must prove a fact about data without revealing data",
+      "effects": [
+        { "when": "yes", "type": "boost", "tool": "zkp", "text": "Use ZKP, unless a trusted third party can verify the fact instead." },
+        { "when": "no", "type": "exclude", "tool": "zkp", "text": "ZKP is ruled out when there is nothing to prove." }
+      ]
+    }
+  ]
+}

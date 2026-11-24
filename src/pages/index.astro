@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { tools, allQuestions } from '../lib/scoring';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base>
+  <section class="hero">
+    <p class="eyebrow">Privacy engineering · decision aid</p>
+    <h1>Which privacy tools fit your project?</h1>
+    <p class="lead secondary">
+      Answer {allQuestions.length} quick questions about your data and how it will be used. We score six families of
+      privacy-enhancing tools and explain what drove the recommendation.
+    </p>
+    <div class="row">
+      <a class="btn primary" href={`${base}quiz/`}>Start the questionnaire →</a>
+      <a class="btn" href={`${base}results/demo/`}>See example results</a>
+    </div>
+    <p class="muted small">Takes about 3 minutes. Answers stay in your browser.</p>
+  </section>
+
+  <section class="tool-grid">
+    {tools.map((t) => (
+      <div class="card">
+        <h3>{t.name}</h3>
+        <p class="secondary">{t.description}</p>
+      </div>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 2rem 0 2.5rem; max-width: 680px; }
+  .hero h1 { font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -0.02em; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; font-weight: 700; color: var(--muted); }
+  .lead { font-size: 1.15rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .small { font-size: 0.85rem; }
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .tool-grid h3 { font-size: 1rem; }
+  .tool-grid p { font-size: 0.9rem; margin: 0; }
+</style>

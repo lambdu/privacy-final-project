@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string }
+const { title = 'Privacy Tool Picker', description = 'Answer a few questions to find which privacy-enhancing tools fit your project.' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href={base}>Privacy Tool Picker</a>
+        <nav>
+          <a href={`${base}quiz/`}><span class="long">Questionnaire</span><span class="short">Quiz</span></a>
+          <a href={`${base}results/demo/`}><span class="long">Example results</span><span class="short">Example</span></a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import Results from '../../components/Results';
+import demoAnswers from '../../data/demo-answers.json';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Example results · Privacy Tool Picker">
+  <Results client:only="preact" base={base} answers={demoAnswers} demo />
+</Base>
